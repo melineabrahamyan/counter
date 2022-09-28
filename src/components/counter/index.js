@@ -21,6 +21,18 @@ export default class Counter extends Component {
     this.setState({ count: 0 });
     this.props.resetClicked();
   };
+
+  componentDidUpdate() {
+    localStorage.setItem("count", JSON.stringify(this.state));
+  }
+
+  componentDidMount() {
+    const newCount = localStorage.getItem("count");
+    if (newCount) {
+      this.setState(JSON.parse(newCount));
+    }
+  }
+
   render() {
     const { count } = this.state;
     const { set } = this.props;

@@ -54,21 +54,39 @@ class App extends Component {
     this.setState({ maxValue: null, minValue: null, step: null, set: false });
   };
 
+  componentDidUpdate() {
+    localStorage.setItem("state", JSON.stringify(this.state));
+  }
+
+  componentDidMount() {
+    const newData = localStorage.getItem("state");
+    if (newData) {
+      this.setState(JSON.parse(newData));
+    }
+  }
+
   render() {
     const { maxValue, minValue, step, set } = this.state;
     return (
       <>
         <input
+          value={maxValue || ""}
           onChange={this.handleMaxValue}
           type="text"
           placeholder="maximum value"
         />
         <input
+          value={minValue || ""}
           onChange={this.handleMinValue}
           type="text"
           placeholder="minimum value"
         />
-        <input onChange={this.handleStep} type="text" placeholder="step" />
+        <input
+          value={step || ""}
+          onChange={this.handleStep}
+          type="text"
+          placeholder="step"
+        />
         <button
           disabled={!(maxValue && minValue && step)}
           onClick={this.handleClick}
