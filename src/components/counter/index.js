@@ -37,12 +37,20 @@ export default class Counter extends Component {
     const { count } = this.state;
     const { set } = this.props;
     return (
-      <div>
-        <button disabled={!set} onClick={this.handleIncrease}>
+      <div className="counter-field">
+        <button
+          className="add-sub"
+          disabled={!set}
+          onClick={this.handleIncrease}
+        >
           +
         </button>
-        <span>Count: {count}</span>
-        <button disabled={!set} onClick={this.handleDecrease}>
+        <span className="count">Count: {count}</span>
+        <button
+          className="add-sub"
+          disabled={!set}
+          onClick={this.handleDecrease}
+        >
           -
         </button>
         <button disabled={!set} onClick={this.handlReset}>

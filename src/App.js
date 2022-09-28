@@ -68,32 +68,33 @@ class App extends Component {
   render() {
     const { maxValue, minValue, step, set } = this.state;
     return (
-      <>
-        <input
-          value={maxValue || ""}
-          onChange={this.handleMaxValue}
-          type="text"
-          placeholder="maximum value"
-        />
-        <input
-          value={minValue || ""}
-          onChange={this.handleMinValue}
-          type="text"
-          placeholder="minimum value"
-        />
-        <input
-          value={step || ""}
-          onChange={this.handleStep}
-          type="text"
-          placeholder="step"
-        />
-        <button
-          disabled={!(maxValue && minValue && step)}
-          onClick={this.handleClick}
-        >
-          Set Values
-        </button>
-
+      <div className="container">
+        <div className="input-field">
+          <input
+            value={maxValue || ""}
+            onChange={this.handleMaxValue}
+            type="text"
+            placeholder="maximum value"
+          />
+          <input
+            value={minValue || ""}
+            onChange={this.handleMinValue}
+            type="text"
+            placeholder="minimum value"
+          />
+          <input
+            value={step || ""}
+            onChange={this.handleStep}
+            type="text"
+            placeholder="step"
+          />
+          <button
+            disabled={!(maxValue && minValue && step)}
+            onClick={this.handleClick}
+          >
+            Set Values
+          </button>
+        </div>
         <Counter
           maxValue={maxValue}
           minValue={minValue}
@@ -101,7 +102,7 @@ class App extends Component {
           set={set}
           resetClicked={this.resetClicked}
         />
-      </>
+      </div>
     );
   }
 }
