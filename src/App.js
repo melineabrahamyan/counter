@@ -12,41 +12,32 @@ class App extends Component {
     };
   }
 
-  isValid = (value) => {
-    return typeof value === "number" && !isNaN(value);
-  };
   handleMaxValue = (e) => {
     const value = Number(e.target.value);
-    if (this.isValid(value)) {
-      this.setState({
-        maxValue: value,
-      });
-    } else {
-      alert("input must be a positive number");
-    }
+
+    this.setState({
+      maxValue: value,
+    });
   };
   handleMinValue = (e) => {
     const value = Number(e.target.value);
-    if (this.isValid(value)) {
-      this.setState({
-        minValue: value,
-      });
-    } else {
-      alert("input must be a positive number");
-    }
+
+    this.setState({
+      minValue: value,
+    });
   };
   handleStep = (e) => {
     const value = Number(e.target.value);
-    if (this.isValid(value)) {
-      this.setState({
-        step: value,
-      });
-    } else {
-      alert("input must be a positive number");
-    }
+
+    this.setState({
+      step: value,
+    });
   };
 
   handleClick = () => {
+    if (!this.state.minValue) {
+      this.setState({ minValue: "0" });
+    }
     this.setState({ set: true });
   };
 
@@ -54,16 +45,20 @@ class App extends Component {
     this.setState({ maxValue: null, minValue: null, step: null, set: false });
   };
 
-  componentDidUpdate() {
-    localStorage.setItem("state", JSON.stringify(this.state));
-  }
-
   componentDidMount() {
     const newData = localStorage.getItem("state");
     if (newData) {
       this.setState(JSON.parse(newData));
     }
   }
+
+  componentDidUpdate() {
+    localStorage.setItem("state", JSON.stringify(this.state));
+  }
+
+  // componentWillUnmount() {
+  //   localStorage.setItem("state", JSON.stringify(this.state));
+  // }
 
   render() {
     const { maxValue, minValue, step, set } = this.state;
@@ -73,25 +68,22 @@ class App extends Component {
           <input
             value={maxValue || ""}
             onChange={this.handleMaxValue}
-            type="text"
+            type="number"
             placeholder="maximum value"
           />
           <input
             value={minValue || ""}
             onChange={this.handleMinValue}
-            type="text"
+            type="number"
             placeholder="minimum value"
           />
           <input
             value={step || ""}
             onChange={this.handleStep}
-            type="text"
+            type="number"
             placeholder="step"
           />
-          <button
-            disabled={!(maxValue && minValue && step)}
-            onClick={this.handleClick}
-          >
+          <button disabled={!(maxValue && step)} onClick={this.handleClick}>
             Set Values
           </button>
         </div>

@@ -22,16 +22,20 @@ export default class Counter extends Component {
     this.props.resetClicked();
   };
 
-  componentDidUpdate() {
-    localStorage.setItem("count", JSON.stringify(this.state));
-  }
-
   componentDidMount() {
     const newCount = localStorage.getItem("count");
     if (newCount) {
       this.setState(JSON.parse(newCount));
     }
   }
+
+  componentDidUpdate() {
+    localStorage.setItem("count", JSON.stringify(this.state));
+  }
+
+  // componentWillUnmount() {
+  //   localStorage.setItem("count", JSON.stringify(this.state));
+  // }
 
   render() {
     const { count } = this.state;
